@@ -35,7 +35,7 @@ public class AllocationController {
 
     @GetMapping("/allocations")
     public Stream<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
-        var treatment = splitClient.getTreatment("key","multiple-tiers");
+        var treatment = splitClient.getTreatment("key","multiple-tiersx");
         if (!"on".equals(treatment)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
