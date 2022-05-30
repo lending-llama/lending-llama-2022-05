@@ -1,0 +1,7 @@
+
+binary := 'monitoror'
+platform_spec := if os() == 'linux' { 'linux-amd64' } else if os() == 'macos' { 'macos' } else { error('Unsupported platform') }
+
+download:
+  curl -sL -o {{binary}} $(curl -s https://api.github.com/repos/monitoror/monitoror/releases/latest | grep 'browser_download_url.*monitoror-{{platform_spec}}' | cut -d: -f2,3 | tr -d \")
+  chmod +x {{binary}}
