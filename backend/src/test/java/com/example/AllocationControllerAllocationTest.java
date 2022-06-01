@@ -1,8 +1,6 @@
 package com.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.split.client.SplitClientImpl;
-import io.split.client.utils.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,13 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,13 +34,4 @@ public class AllocationControllerAllocationTest {
             .andExpect(status().isOk())
             .andExpect(content().json(mapper.writeValueAsString(expected)));
 	}
-
-    @Test
-    public void ratesWithoutMaxValueAreNotNull() throws Exception {
-        List<PlatformTier> platformTierList = new ArrayList<>();
-        platformTierList.add(new PlatformTier().setName("Ledn").setRate(6.25).setMax(1d));
-        platformTierList.add(new PlatformTier().setName("BlockFi").setRate(4.5).setMax(0.1d));
-        platformTierList.add(new PlatformTier().setName("Ledn").setRate(1.0).setMax(null));
-        assertThat(AllocationController.buildPlatformTierSubList(1.2, platformTierList)).
-    }
 }
