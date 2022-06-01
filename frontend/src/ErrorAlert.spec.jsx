@@ -10,7 +10,7 @@ describe('Error Alert', () => {
   it('displays error msg', () => {
     const alert = render(<Provider store={store}><ErrorAlert/></Provider>);
     store.dispatch(errorsAdded('fdsa'))
-    alert.getByText('fdsa')
+    expect(alert.queryAllByText('fdsa')).toHaveLength(1)
   })
   it('dismisses error msg', async () => {
     const alert = render(<Provider store={store}><ErrorAlert/></Provider>);
