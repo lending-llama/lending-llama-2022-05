@@ -11,7 +11,3 @@ export const allocationsReducer = (state = {bestRate: {}, multipleTiers: []}, ac
       return state
   }
 };
-
-export const formatAllocationRate = (rate) => {
-  return rate && rate.toFixed(2) + "%";
-}

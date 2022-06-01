@@ -5,7 +5,7 @@ import {AllocationsTable} from "./presentation/AllocationsTable";
 import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
 import {bestRateFetched, multipleTiersFetched} from "./actions/allocations";
-import {formatAllocationRate} from "./reducers/allocations";
+import {formatAllocationRate} from "./presentation";
 
 export const App = () => {
   const features = useSelector(x => x.features)
