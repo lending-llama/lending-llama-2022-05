@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,4 +35,16 @@ public class AllocationControllerAllocationTest {
             .andExpect(status().isOk())
             .andExpect(content().json(mapper.writeValueAsString(expected)));
 	}
+
+    @Test
+    public void testReplacesMissingMaxInPlatformTierWithInfinity(){
+
+        final Platform.Tier[] tiers = new Platform.Tier[1];
+        tiers[0] = new Platform.Tier().setRate(1.0); // set a rate but no Max value!
+        Platform p = new Platform().setName("Platform").setTiers(tiers);
+        var tiersStream = AllocationController.tiersFromPlatform(p);
+
+        assertThat(tiersStream.findFirst().get().getMax()).isEqualTo(Double.POSITIVE_INFINITY);
+
+    }
 }
