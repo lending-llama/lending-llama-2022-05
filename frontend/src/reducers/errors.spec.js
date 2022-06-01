@@ -2,14 +2,14 @@ import {errorsReducer} from "./errors";
 import {errorsAdded, errorsDismissedFirst} from "../actions/errors";
 
 describe('Errors reducer', () => {
-  const state = ['foo']
   it('removes error', () => {
-    state.push('bar')
+    const state = ['foo', 'bar']
     expect(errorsReducer(state, errorsDismissedFirst()))
       .toEqual(['bar'])
   })
-  it('saves payloads', () => {
+  it('appends errors', () => {
+    const state = ['foo']
     expect(errorsReducer(state, errorsAdded('baz')))
-      .toEqual(['foo', 'bar', 'baz'])
+      .toEqual(['foo', 'baz'])
   })
 })
