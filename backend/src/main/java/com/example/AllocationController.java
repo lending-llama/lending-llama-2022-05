@@ -34,7 +34,7 @@ public class AllocationController {
     }
 
     @GetMapping("/allocations")
-    public Stream<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
+    public List<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
         var treatment = splitClient.getTreatment("key","multiple-tiers");
         if (!"on".equals(treatment)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -42,18 +42,26 @@ public class AllocationController {
 
         var platformTiers = getPlatformTiersDescByRate();
 
+        return buildPlatformTierSubList(amount, platformTiers);
+    }
+
+    public static List<Allocation> buildPlatformTierSubList(Double amount, List<PlatformTier> platformTiers) {
         var count = (int) IntStream.range(1, platformTiers.size())
             .takeWhile(i -> platformTiers.stream().limit(i).mapToDouble(PlatformTier::getMax).sum() < amount)
             .count();
 
-        return platformTiers.subList(0, count+1).stream().map(
+        return platformTiers.subList(0, count + 1).stream().map(
             t -> new Allocation().setName(t.getName()).setRate(t.getRate())
-        );
+        ).collect(Collectors.toList());
     }
 
     private List<PlatformTier> getPlatformTiersDescByRate() {
         var url = "https://priceless-khorana-4dd263.netlify.app/btc-rates.json";
         var platforms = restTemplate.getForObject(url, Platform[].class);
+        return flatMappedPlatforms(platforms);
+    }
+
+    public static List<PlatformTier> flatMappedPlatforms(Platform[] platforms) {
         return stream(platforms).flatMap(p -> stream(p.getTiers()).map(t ->
                 new PlatformTier()
                     .setName(p.getName())
