@@ -5,6 +5,7 @@ import {AllocationsTable} from "./presentation/AllocationsTable";
 import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
 import {bestRateFetched, multipleTiersFetched} from "./actions/allocations";
+import {formatAllocationRate} from "./reducers/allocations";
 
 export const App = () => {
   const features = useSelector(x => x.features)
@@ -39,7 +40,7 @@ export const App = () => {
     <>
       <div data-testid="allocation-c020b901">
         <Card>
-          Best rate: {bestAllocation.rate && bestAllocation.rate.toFixed(2)}% ({bestAllocation.name})
+          Best rate: {formatAllocationRate(bestAllocation.rate)} ({bestAllocation.name})
         </Card>
       </div>
       {featureMultipleTiersOn
