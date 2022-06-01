@@ -4,8 +4,8 @@ import {Card, InputWithLabel} from "./presentation";
 import {AllocationsTable} from "./presentation/AllocationsTable";
 import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
-import {bestRateFetched, multipleTiersFetched} from "./actions/allocations";
-import {formatAllocationRate} from "./presentation";
+import {multipleTiersFetched} from "./actions/allocations";
+import {BestRateCard} from "./components/BestRateCard";
 
 export const App = () => {
   const features = useSelector(x => x.features)
@@ -14,13 +14,6 @@ export const App = () => {
   const dispatch = useDispatch()
 
   const [amount, setAmount] = useState(0.1);
-
-  const bestAllocation = useSelector(x=>x.allocations.bestRate)
-  useEffect(() => {
-    fetch(`/api/best-rate`)
-      .then(x=>x.json())
-      .then(x=>dispatch(bestRateFetched(x)))
-  }, [])
 
   const allocations = useSelector(x=>x.allocations.multipleTiers)
   useEffect(() => {
@@ -38,26 +31,22 @@ export const App = () => {
 
   return (
     <>
-      <div data-testid="allocation-c020b901">
-        <Card>
-          Best rate: {formatAllocationRate(bestAllocation.rate)} ({bestAllocation.name})
-        </Card>
-      </div>
+      <BestRateCard />
       {featureMultipleTiersOn
         ? <div className="pt-2">
-            <Card>
-              <InputWithLabel
-                name="amount"
-                label="BTC Amount"
-                type="number"
-                value={amount}
-                step="0.1"
-                placeholder="Amount of BTC you want to lend"
-                onChange={e => setAmount(e.target.value)}
-              />
-              <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
-            </Card>
-          </div>
+          <Card>
+            <InputWithLabel
+              name="amount"
+              label="BTC Amount"
+              type="number"
+              value={amount}
+              step="0.1"
+              placeholder="Amount of BTC you want to lend"
+              onChange={e => setAmount(e.target.value)}
+            />
+            <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
+          </Card>
+        </div>
         : null
       }
       <div className="pt-2">
