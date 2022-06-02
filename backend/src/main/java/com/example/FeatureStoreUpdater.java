@@ -22,7 +22,7 @@ private SplitClient splitClient;
    @PostConstruct
    public void updateFeatureStore() {
     var treatment = splitClient.getTreatment("key","multiple-tiers");
-    boolean flag = !"on".equals(treatment);
+    boolean flag = "on".equals(treatment);
     featureStore.setFeatureToggle(flag);
    }
    
