@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Card, InputWithLabel} from "./presentation";
+import {Card, CardWithHeader, InputWithLabel} from "./presentation";
 import {AllocationsTable} from "./presentation/AllocationsTable";
 import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
@@ -34,7 +34,7 @@ export const App = () => {
       <BestRateCard />
       {featureMultipleTiersOn
         ? <div className="pt-2">
-          <Card>
+          <CardWithHeader header="Calculate Allocation for Amount">
             <InputWithLabel
               name="amount"
               label="BTC Amount"
@@ -45,7 +45,7 @@ export const App = () => {
               onChange={e => setAmount(e.target.value)}
             />
             <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
-          </Card>
+          </CardWithHeader>
         </div>
         : null
       }
