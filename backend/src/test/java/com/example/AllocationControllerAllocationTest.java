@@ -39,6 +39,8 @@ class AllocationControllerAllocationTest {
 	private MockMvc mvc;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private FeatureStore featurestore;
 
     private MockRestServiceServer mockServer;
 
@@ -51,6 +53,9 @@ class AllocationControllerAllocationTest {
 
     @Test
     void selectsAllocationsFromAvailable() throws Exception {
+
+        featurestore.setFeatureToggle(false);
+
         var url = API_BASE_URL + "btc-rates.json";
 
         mockServer.expect(requestTo(new URI(url)))

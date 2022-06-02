@@ -4,6 +4,8 @@ import io.split.client.SplitClient;
 import io.split.client.SplitClientConfig;
 import io.split.client.SplitFactory;
 import io.split.client.SplitFactoryBuilder;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +21,9 @@ import java.util.concurrent.TimeoutException;
 
 @SpringBootApplication(scanBasePackages = "com.example")
 public class Application {
+
+    @Autowired
+    FeatureStore featureStore;
 
 	public static void main(String[] args) throws Exception {
 		System.setProperty("spring.devtools.livereload.enabled", "false");
