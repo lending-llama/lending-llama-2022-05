@@ -1,5 +1,5 @@
-import {errorsReducer} from "./errors";
-import {errorsAdded, errorsDismissedFirst} from "../actions/errors";
+import {errorsReducer} from "./errors-r";
+import {errorsAdded, errorsDismissedFirst} from "./errors-a";
 
 describe('Errors reducer', () => {
   it('removes error', () => {

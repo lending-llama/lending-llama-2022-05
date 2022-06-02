@@ -1,4 +1,4 @@
-import {ERRORS_ADDED, ERRORS_DISMISSED_FIRST} from "../constants/errors";
+import {ERRORS_ADDED, ERRORS_DISMISSED_FIRST} from "./errors-c";
 
 export const errorsReducer = (state = [], action) => {
   switch (action.type) {

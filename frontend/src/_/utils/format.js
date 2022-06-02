@@ -1,4 +1,4 @@
-import {errorsAdded} from "../redux/actions/errors";
+import {errorsAdded} from "../../errors/errors-a";
 
 export const formatAllocationRate = (rate) => {
   return rate && rate.toFixed(2) + "%";

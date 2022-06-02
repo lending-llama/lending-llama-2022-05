@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from 'redux'
-import {errorsReducer} from "./redux/reducers/errors";
+import {errorsReducer} from "../errors/errors-r";
 import {featuresReducer} from "./redux/reducers/features";
 import {allocationsReducer} from "./redux/reducers/allocations";
 
