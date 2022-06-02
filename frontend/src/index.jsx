@@ -5,7 +5,7 @@ import './features'
 import './redux'
 import {Provider} from "react-redux";
 import {store} from "./redux";
-import {AppShell} from "./AppShell";
+import {AppShell} from "./components/presentation/AppShell";
 
 const app = (
   <React.StrictMode>

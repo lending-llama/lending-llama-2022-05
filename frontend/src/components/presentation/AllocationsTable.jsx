@@ -1,5 +1,5 @@
 import React from "react";
-import {formatAllocationRate} from "./format";
+import {formatAllocationRate} from "../../utils/format";
 
 // Simple striped table from Tailwind UI
 //   https://tailwindui.com/components/application-ui/lists/tables#component-d60e8c748260b622747ec1568ba9c509

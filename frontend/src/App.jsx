@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Card, CardWithHeader, InputWithLabel} from "./presentation";
-import {AllocationsTable} from "./presentation/AllocationsTable";
+import {Card, CardWithHeader, InputWithLabel} from "./components/presentation";
+import {AllocationsTable} from "./components/presentation/AllocationsTable";
 import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
 import {multipleTiersFetched} from "./actions/allocations";
-import {BestRateCard} from "./components/BestRateCard";
+import {BestRateCard} from "./components/container/BestRateCard";
 
 export const App = () => {
   const features = useSelector(x => x.features)

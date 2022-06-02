@@ -1,7 +1,7 @@
 import {Card, formatAllocationRate} from "../presentation";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {bestRateFetched} from "../actions/allocations";
+import {bestRateFetched} from "../../actions/allocations";
 
 export function BestRateCard() {
 
