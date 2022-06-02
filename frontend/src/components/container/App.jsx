@@ -4,13 +4,13 @@ import {Card} from "../presentation";
 import {FEATURES} from "../../features";
 import {BestRateCard} from "./BestRateCard";
 import {AllocationsCalculatorCard} from "./AllocationsCalculatorCard";
-import {HBox} from "./HBox";
+import {VBox} from "./VBox";
 
 export const App = () => {
   const features = useSelector(x => x.features)
 
   return (
-    <HBox>
+    <VBox>
       <BestRateCard />
       {features[FEATURES.MULTIPLE_TIERS] === "on"
         ? <AllocationsCalculatorCard />
@@ -19,6 +19,6 @@ export const App = () => {
       <Card>
         <p>WAGMI</p>
       </Card>
-    </HBox>
+    </VBox>
   );
 }
