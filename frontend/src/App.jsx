@@ -6,6 +6,7 @@ import {errorsAdded} from "./actions/errors";
 import {FEATURES} from "./features";
 import {multipleTiersFetched} from "./actions/allocations";
 import {BestRateCard} from "./components/container/BestRateCard";
+import {AmountInput} from "./components/presentation/AmountInput";
 
 export const App = () => {
   const features = useSelector(x => x.features)
@@ -35,13 +36,8 @@ export const App = () => {
       {featureMultipleTiersOn
         ? <div className="pt-2">
           <CardWithHeader header="Calculate Allocation for Amount">
-            <InputWithLabel
-              name="amount"
-              label="BTC Amount"
-              type="number"
+            <AmountInput
               value={amount}
-              step="0.1"
-              placeholder="Amount of BTC you want to lend"
               onChange={e => setAmount(e.target.value)}
             />
             <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
