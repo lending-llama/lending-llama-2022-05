@@ -2,19 +2,15 @@ package com.example;
 
 import io.split.client.SplitClient;
 import io.split.client.SplitClientConfig;
-import io.split.client.SplitFactory;
 import io.split.client.SplitFactoryBuilder;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 
 @SpringBootApplication(scanBasePackages = "com.example")
@@ -41,5 +37,8 @@ public class Application {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
+
+    @Bean
+    public FeatureStore featureStore(){return new FeatureStore();}
 
 }

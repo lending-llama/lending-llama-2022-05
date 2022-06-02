@@ -35,6 +35,7 @@ class AllocationControllerAllocationTest {
     public static final List<Allocation> EXPECTED_ALLOCATIONS = List.of(
         new Allocation().setName(PLATFORM_NAME).setRate(PLATFORM_RATE)
     );
+    private static final String ALLOCATION_REQUEST = "/allocations?amount=1.1";
     @Autowired
 	private MockMvc mvc;
     @Autowired
@@ -44,6 +45,9 @@ class AllocationControllerAllocationTest {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    @Autowired
+    private FeatureStore featureStore;
+
     @BeforeEach
     public void beforeEach() {
         mockServer = MockRestServiceServer.createServer(restTemplate);
@@ -51,6 +55,7 @@ class AllocationControllerAllocationTest {
 
     @Test
     void selectsAllocationsFromAvailable() throws Exception {
+        featureStore.setMultipleTiersEnabled(true);
         var url = API_BASE_URL + "btc-rates.json";
 
         mockServer.expect(requestTo(new URI(url)))
@@ -58,11 +63,20 @@ class AllocationControllerAllocationTest {
             .contentType(MediaType.APPLICATION_JSON)
             .body(mapper.writeValueAsString(List.of(PLATFORM_FROM_EXTERNAL_API))));
 
-        mvc.perform(MockMvcRequestBuilders.get("/allocations?amount=1.1")
+        mvc.perform(MockMvcRequestBuilders.get(ALLOCATION_REQUEST)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andExpect(content().json(mapper.writeValueAsString(EXPECTED_ALLOCATIONS)));
 	}
+
+    @Test
+    void returnNotFoundWhenMultipleTiersAreDisabled() throws Exception {
+        featureStore.setMultipleTiersEnabled(false);
+
+        mvc.perform(MockMvcRequestBuilders.get(ALLOCATION_REQUEST)
+                .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().is4xxClientError());
+    }
 
     @Test
     void testReplacesMissingMaxInPlatformTierWithInfinity(){
