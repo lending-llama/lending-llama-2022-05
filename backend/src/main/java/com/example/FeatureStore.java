@@ -13,12 +13,12 @@ public class FeatureStore {
     }
 
 
-    public boolean getFeatureToggle() {
+    public boolean getMultipleTiersFeatureToggle() {
         return featureToggle;
     }
 
-    public void setFeatureToggle(boolean featureToggle) {
+    public void setMultipleTiersFeatureToggle(boolean featureToggle) {
         this.featureToggle = featureToggle;
     }
-    
+
 }

@@ -54,7 +54,7 @@ class AllocationControllerAllocationTest {
     @Test
     void selectsAllocationsFromAvailable() throws Exception {
 
-        featurestore.setFeatureToggle(false);
+        featurestore.setMultipleTiersFeatureToggle(true);
 
         var url = API_BASE_URL + "btc-rates.json";
 

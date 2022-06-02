@@ -30,7 +30,7 @@ public class AllocationController {
     public static final String API_BASE_URL = "https://priceless-khorana-4dd263.netlify.app/";
     private RestTemplate restTemplate;
     private SplitClient splitClient;
-    
+
 
     public AllocationController(RestTemplate restTemplate, SplitClient splitClient) {
         this.restTemplate = restTemplate;
@@ -60,9 +60,9 @@ public class AllocationController {
 
     @GetMapping("/allocations")
     public Stream<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
-        
-        var flag = featureStore.getFeatureToggle();
-        if (flag) {
+
+        var flag = featureStore.getMultipleTiersFeatureToggle();
+        if (!flag) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
