@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {multipleTiersFetched} from "../../redux/actions/allocations";
 import {errorsAdded} from "../../redux/actions/errors";
-import {CardWithHeader} from "../presentation";
+import {Card} from "../presentation";
 import {AmountInput} from "../presentation/AmountInput";
 import {AllocationsTable} from "../presentation/AllocationsTable";
 
@@ -24,12 +24,12 @@ export const AllocationsCalculatorCard = () => {
   }, [amount])
 
   return <div className="pt-2">
-    <CardWithHeader header="Calculate Allocation for Amount">
+    <Card header="Calculate Allocation for Amount">
       <AmountInput
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
       <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
-    </CardWithHeader>
+    </Card>
   </div>;
 }

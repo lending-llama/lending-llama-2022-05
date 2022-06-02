@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {Card, CardWithHeader} from "./Panels";
+import {Card} from "./Panels";
 
 describe('Card', () => {
   it('has skeleton as specified by Tailwind UI', () => {
@@ -11,9 +11,9 @@ describe('Card', () => {
 describe('CardWithHeader', () => {
   it('has skeleton as specified by Tailwind UI', () => {
     expect(renderer.create(
-      <CardWithHeader header="header">
+      <Card header="header">
         main content
-      </CardWithHeader>
+      </Card>
     ).toJSON()).toMatchSnapshot();
   })
 })
