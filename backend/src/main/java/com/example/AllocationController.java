@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.platform.PlatformFetcher;
+import com.example.platform.PlatformTier;
 import io.split.client.SplitClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -27,13 +26,12 @@ public class AllocationController {
     @Autowired
     private FeatureStore featureStore;
 
-    public static final String API_BASE_URL = "https://priceless-khorana-4dd263.netlify.app/";
-    private RestTemplate restTemplate;
     private SplitClient splitClient;
 
+    @Autowired
+    private PlatformFetcher platformFetcher;
 
-    public AllocationController(RestTemplate restTemplate, SplitClient splitClient) {
-        this.restTemplate = restTemplate;
+    public AllocationController(SplitClient splitClient) {
         this.splitClient = splitClient;
     }
 
@@ -49,12 +47,12 @@ public class AllocationController {
 
         var apiLocation = apiLocations.get(currencyName);
 
-        var tier1 = getPlatformTiersDescByRate(apiLocation).get(0);
+        var tier1 = platformFetcher.getPlatformTiersDescByRate(apiLocation, this).get(0);
         return new Allocation().setName(tier1.getName()).setRate(tier1.getRate());
     }
 
     public Allocation getBestEthRate() {
-        var tier1 = getPlatformTiersDescByRate("eth-rates.json").get(0);
+        var tier1 = platformFetcher.getPlatformTiersDescByRate("eth-rates.json", this).get(0);
         return new Allocation().setName(tier1.getName()).setRate(tier1.getRate());
     }
 
@@ -66,7 +64,7 @@ public class AllocationController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        var platformTiers = getPlatformTiersDescByRate("btc-rates.json");
+        var platformTiers = platformFetcher.getPlatformTiersDescByRate("btc-rates.json", this);
 
         var count = (int) IntStream.range(1, platformTiers.size())
             .takeWhile(i -> platformTiers.stream().limit(i).mapToDouble(PlatformTier::getMax).sum() < amount)
@@ -76,22 +74,4 @@ public class AllocationController {
             t -> new Allocation().setName(t.getName()).setRate(t.getRate())
         );
     }
-
-    private List<PlatformTier> getPlatformTiersDescByRate(String apiLocation) {
-        var url = API_BASE_URL + apiLocation;
-        var platforms = restTemplate.getForObject(url, Platform[].class);
-        return stream(platforms).flatMap(AllocationController::tiersFromPlatform)
-            .sorted(Comparator.comparingDouble(PlatformTier::getRate).reversed())
-            .collect(Collectors.toList());
-    }
-
-    public static Stream<PlatformTier> tiersFromPlatform(final Platform p) {
-        return Stream.of(p.getTiers()).map(t ->
-            new PlatformTier()
-                .setName(p.getName())
-                .setRate(t.getRate())
-                .setMax( null == t.getMax()? Double.POSITIVE_INFINITY : t.getMax()));
-    }
-
-
 }

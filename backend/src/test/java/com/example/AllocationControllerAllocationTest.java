@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.platform.Platform;
+import com.example.platform.PlatformFetcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import java.net.URI;
 import java.util.List;
 
-import static com.example.AllocationController.API_BASE_URL;
+import static com.example.platform.PlatformFetcher.API_BASE_URL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -75,7 +77,7 @@ class AllocationControllerAllocationTest {
         final Platform.Tier[] tiers = new Platform.Tier[1];
         tiers[0] = new Platform.Tier().setRate(1.0); // set a rate but no Max value!
         Platform p = new Platform().setName("Platform").setTiers(tiers);
-        var tiersStream = AllocationController.tiersFromPlatform(p);
+        var tiersStream = PlatformFetcher.tiersFromPlatform(p);
 
         assertThat(tiersStream.findFirst().get().getMax()).isEqualTo(Double.POSITIVE_INFINITY);
     }
