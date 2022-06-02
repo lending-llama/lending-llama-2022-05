@@ -19,6 +19,7 @@ import static java.util.Arrays.stream;
 @RestController
 public class AllocationController {
 
+    public static final String API_BASE_URL = "https://priceless-khorana-4dd263.netlify.app/";
     private RestTemplate restTemplate;
     private SplitClient splitClient;
 
@@ -29,7 +30,7 @@ public class AllocationController {
 
     @GetMapping("/best-rate")
     public Allocation getBestRate() {
-        var tier1 = getPlatformTiersDescByRate().get(0);
+        var tier1 = getPlatformTiersDescByRate("btc-rates.json").get(0);
         return new Allocation().setName(tier1.getName()).setRate(tier1.getRate());
     }
 
@@ -40,7 +41,7 @@ public class AllocationController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        var platformTiers = getPlatformTiersDescByRate();
+        var platformTiers = getPlatformTiersDescByRate("btc-rates.json");
 
         var count = (int) IntStream.range(1, platformTiers.size())
             .takeWhile(i -> platformTiers.stream().limit(i).mapToDouble(PlatformTier::getMax).sum() < amount)
@@ -51,8 +52,8 @@ public class AllocationController {
         );
     }
 
-    private List<PlatformTier> getPlatformTiersDescByRate() {
-        var url = "https://priceless-khorana-4dd263.netlify.app/btc-rates.json";
+    private List<PlatformTier> getPlatformTiersDescByRate(String apiLocation) {
+        var url = API_BASE_URL + apiLocation;
         var platforms = restTemplate.getForObject(url, Platform[].class);
         return stream(platforms).flatMap(AllocationController::tiersFromPlatform)
             .sorted(Comparator.comparingDouble(PlatformTier::getRate).reversed())
@@ -68,18 +69,7 @@ public class AllocationController {
     }
 
     public Allocation getBestEthRate() {
-        var url = "https://priceless-khorana-4dd263.netlify.app/eth-rates.json";
-        var platforms = restTemplate.getForObject(url, Platform[].class);
-        var platformTiers = stream(platforms).flatMap(p -> stream(p.getTiers()).map(t ->
-                new PlatformTier()
-                    .setName(p.getName())
-                    .setRate(t.getRate())
-                    .setMax(t.getMax())
-            ))
-            .sorted(Comparator.comparingDouble(PlatformTier::getRate).reversed())
-            .toList();
-
-        var tier1 = platformTiers.get(0);
+        var tier1 = getPlatformTiersDescByRate("eth-rates.json").get(0);
         return new Allocation().setName(tier1.getName()).setRate(tier1.getRate());
     }
 }
