@@ -1,6 +1,8 @@
 package com.example;
 
 import io.split.client.SplitClient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +24,13 @@ import static java.util.Arrays.stream;
 @RestController
 public class AllocationController {
 
+    @Autowired
+    private FeatureStore featureStore;
+
     public static final String API_BASE_URL = "https://priceless-khorana-4dd263.netlify.app/";
     private RestTemplate restTemplate;
     private SplitClient splitClient;
+    
 
     public AllocationController(RestTemplate restTemplate, SplitClient splitClient) {
         this.restTemplate = restTemplate;
@@ -54,8 +60,9 @@ public class AllocationController {
 
     @GetMapping("/allocations")
     public Stream<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
-        var treatment = splitClient.getTreatment("key","multiple-tiers");
-        if (!"on".equals(treatment)) {
+        
+        var flag = featureStore.getFeatureToggle();
+        if (flag) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
