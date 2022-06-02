@@ -2,6 +2,7 @@ import {Card, formatAllocationRate} from "../presentation";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {bestRateFetched} from "../../redux/actions/allocations";
+import {fetchFromBackend} from "../../utils/fetcher";
 
 export function BestRateCard() {
 
@@ -9,9 +10,7 @@ export function BestRateCard() {
 
   const bestAllocation = useSelector(x => x.allocations.bestRate)
   useEffect(() => {
-    fetch(`/api/best-rate`)
-      .then(x => x.json())
-      .then(x => dispatch(bestRateFetched(x)))
+    fetchFromBackend(`/api/best-rate`, dispatch, bestRateFetched)
   }, [])
 
 
