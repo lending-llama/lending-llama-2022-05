@@ -4,7 +4,7 @@ import {Card} from "../presentation";
 import {FEATURES} from "../../features";
 import {BestRateCard} from "./BestRateCard";
 import {AllocationsCalculatorCard} from "./AllocationsCalculatorCard";
-import {VBox} from "./VBox";
+import {VBox} from "../presentation/VBox";
 
 export const App = () => {
   const features = useSelector(x => x.features)
