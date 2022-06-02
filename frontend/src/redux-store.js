@@ -1,7 +1,7 @@
 import {combineReducers, createStore} from 'redux'
-import {errorsReducer} from "./reducers/errors";
-import {featuresReducer} from "./reducers/features";
-import {allocationsReducer} from "./reducers/allocations";
+import {errorsReducer} from "./redux/reducers/errors";
+import {featuresReducer} from "./redux/reducers/features";
+import {allocationsReducer} from "./redux/reducers/allocations";
 
 export function createMyStore() {
   return createStore(

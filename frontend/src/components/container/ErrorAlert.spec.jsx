@@ -2,9 +2,9 @@ import {ErrorAlert} from "./ErrorAlert";
 import {render} from "@testing-library/react";
 import React from "react";
 import {Provider} from "react-redux";
-import {createMyStore, store} from "../../redux";
+import {createMyStore, store} from "../../redux-store";
 import '@testing-library/jest-dom'
-import {errorsAdded, errorsDismissedFirst} from "../../actions/errors"; // extends Jest with .toHaveTextContent
+import {errorsAdded, errorsDismissedFirst} from "../../redux/actions/errors"; // extends Jest with .toHaveTextContent
 
 describe('Error Alert', () => {
   it('displays error msg', () => {

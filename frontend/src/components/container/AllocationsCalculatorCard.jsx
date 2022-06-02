@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {multipleTiersFetched} from "../../actions/allocations";
-import {errorsAdded} from "../../actions/errors";
+import {multipleTiersFetched} from "../../redux/actions/allocations";
+import {errorsAdded} from "../../redux/actions/errors";
 import {CardWithHeader} from "../presentation";
 import {AmountInput} from "../presentation/AmountInput";
 import {AllocationsTable} from "../presentation/AllocationsTable";

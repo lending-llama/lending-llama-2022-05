@@ -1,7 +1,7 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import * as r from 'ramda'
-import {errorsDismissedFirst} from "../../actions/errors";
+import {errorsDismissedFirst} from "../../redux/actions/errors";
 import {ErrorAlertPresentation} from "../presentation/ErrorAlertPresentation";
 
 export const ErrorAlert = () => {
