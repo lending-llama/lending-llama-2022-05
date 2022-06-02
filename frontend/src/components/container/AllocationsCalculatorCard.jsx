@@ -23,13 +23,11 @@ export const AllocationsCalculatorCard = () => {
       .catch(e => dispatch(errorsAdded(e.message)))
   }, [amount])
 
-  return <div className="pt-2">
-    <CardWithHeader header="Calculate Allocation for Amount">
+  return <CardWithHeader header="Calculate Allocation for Amount">
       <AmountInput
         value={amount}
         onChange={e => setAmount(e.target.value)}
       />
       <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
-    </CardWithHeader>
-  </div>;
+    </CardWithHeader>;
 }
