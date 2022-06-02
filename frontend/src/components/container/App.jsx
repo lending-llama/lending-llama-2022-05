@@ -1,9 +1,9 @@
 import React from "react";
 import {useSelector} from "react-redux";
-import {Card} from "./components/presentation";
-import {FEATURES} from "./features";
-import {BestRateCard} from "./components/container/BestRateCard";
-import {AllocationsCalculatorCard} from "./components/container/AllocationsCalculatorCard";
+import {Card} from "../presentation";
+import {FEATURES} from "../../features";
+import {BestRateCard} from "./BestRateCard";
+import {AllocationsCalculatorCard} from "./AllocationsCalculatorCard";
 
 export const App = () => {
   const features = useSelector(x => x.features)
