@@ -1,6 +1,7 @@
 package com.example;
 
 import io.split.client.SplitClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +26,12 @@ public class AllocationController {
     public static final String API_BASE_URL = "https://priceless-khorana-4dd263.netlify.app/";
     private RestTemplate restTemplate;
     private SplitClient splitClient;
+    private FeatureStore featureStore;
 
-    public AllocationController(RestTemplate restTemplate, SplitClient splitClient) {
+    public AllocationController(RestTemplate restTemplate, SplitClient splitClient, FeatureStore featureStore) {
         this.restTemplate = restTemplate;
         this.splitClient = splitClient;
+        this.featureStore = featureStore;
     }
 
     @GetMapping(value={"/best-rate", "/best-rate-{currencyParam}"})
@@ -54,8 +57,7 @@ public class AllocationController {
 
     @GetMapping("/allocations")
     public Stream<Allocation> getAllocation(@RequestParam Double amount) throws Exception {
-        var treatment = splitClient.getTreatment("key","multiple-tiers");
-        if (!"on".equals(treatment)) {
+        if (!"on".equals(featureStore.getTreatment())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
