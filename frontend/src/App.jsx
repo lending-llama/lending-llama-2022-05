@@ -1,48 +1,18 @@
-import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Card, CardWithHeader, InputWithLabel} from "./components/presentation";
-import {AllocationsTable} from "./components/presentation/AllocationsTable";
-import {errorsAdded} from "./actions/errors";
+import React from "react";
+import {useSelector} from "react-redux";
+import {Card} from "./components/presentation";
 import {FEATURES} from "./features";
-import {multipleTiersFetched} from "./actions/allocations";
 import {BestRateCard} from "./components/container/BestRateCard";
-import {AmountInput} from "./components/presentation/AmountInput";
+import {AllocationsCalculatorCard} from "./components/container/AllocationsCalculatorCard";
 
 export const App = () => {
   const features = useSelector(x => x.features)
-  const featureMultipleTiersOn = features[FEATURES.MULTIPLE_TIERS] === "on";
-
-  const dispatch = useDispatch()
-
-  const [amount, setAmount] = useState(0.1);
-
-  const allocations = useSelector(x=>x.allocations.multipleTiers)
-  useEffect(() => {
-    if (!featureMultipleTiersOn) { return }
-
-    fetch(`/api/allocations?amount=${amount}`)
-      .then(async x => {
-        if (x.status >= 400) {throw new Error(await x.text())}
-        return x
-      })
-      .then(x=>x.json())
-      .then(x=>dispatch(multipleTiersFetched(x)))
-      .catch(e => dispatch(errorsAdded(e.message)))
-  }, [amount])
 
   return (
     <>
       <BestRateCard />
-      {featureMultipleTiersOn
-        ? <div className="pt-2">
-          <CardWithHeader header="Calculate Allocation for Amount">
-            <AmountInput
-              value={amount}
-              onChange={e => setAmount(e.target.value)}
-            />
-            <div className="pt-4"><AllocationsTable allocations={allocations}/></div>
-          </CardWithHeader>
-        </div>
+      {features[FEATURES.MULTIPLE_TIERS] === "on"
+        ? <div className="pt-2"><AllocationsCalculatorCard /></div>
         : null
       }
       <div className="pt-2">
