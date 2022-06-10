@@ -1,7 +1,7 @@
 # Technical Practices for Agile Development
 
 Alex Bepple  
-Last update: 11 November 2021
+Last update: 10 June 2022
 
 [TOC]
 
@@ -31,7 +31,7 @@ Seeing a test <span style="color:red">fail</span> is essential. It ensures that 
 
 Test-Driven Development is not a testing approach. TDD is a technique for structuring your development flow. It guides you to implement a big thing bit by bit and to never doubt whether the small bit that you implemented first still works. 
 
-TDD can be applied at different levels: from micro tests ("unit tests", "narrow tests") to end-to-end tests. The length of the loop varies accordingly. At the micro level, it takes minutes at the most. The larger the test scope, i.e. the unit under test, the longer. At e2e level, it might take days. However, whenever possible, prefer smaller slices of functionality. Even at e2e level, try sticking to sub-day granularity.
+TDD can be applied at different levels: from micro tests ("unit tests", "narrow tests") to end-to-end tests. The length of the feedback loop varies accordingly. At the micro level, it takes minutes at the most. The larger the test scope, i.e. the unit under test, the longer. At e2e level, it might take days. However, whenever possible, prefer smaller slices of functionality. Even at e2e level, try sticking to sub-day granularity.
 
 ### Micro Patterns
 
@@ -60,7 +60,7 @@ Vectors of attack:
 * make code easier to understand, e.g. improve names, hide incidental details
 * make code easier to modify, e.g. establish technical properties such as immutability, remove duplication
 
-Of course, it depends on the point of view what is "observable" behavior and what isn’t.
+Of course, it depends on the point of view what is "observable" behavior and what isn’t. Your automated test suite should represent most of the behavior that you consider "observable" and intentional. When writing tests – esp. after the fact – beware of tests that specify _incidental_ behavior.
 
 Term [popularized](https://martinfowler.com/books/refactoring.html) by Martin Fowler.
 
@@ -97,11 +97,11 @@ It is all too common. For instance:
 >
 > – Kent C. Dodds, https://testing-library.com/
 
-He is not wrong. But this is only one side of the truth. There are downsides: speed of execution, failure locality, technical complexity, setup complexity.
+He is not wrong. But this is only one side of the truth. There are huge downsides to this approach: low speed of execution, low failure locality, technical complexity, setup complexity.
 
 Solution: overlapping sociable tests (cp. discussion of Testing Pyramid linked above).
 
-Push every worthwhile observable behavior as far as possible to the micro level – as long as it’s sensible – and test it there. This approach has the additional benefit of driving your technical design. Remember `formatRate` in our example code base.
+Recommendation: push every worthwhile observable behavior as far as possible to the micro level – as long as it’s sensible – and test it there. This approach has the additional benefit of driving your technical design. Remember `formatRate` in our example code base.
 
 #### Warning 2: Test Doubles Everywhere
 
@@ -125,8 +125,8 @@ Originally suggested [by Brian Marick](http://www.exampler.com/old-blog/2003/08/
 
 Of the many [code smells](https://en.wikipedia.org/wiki/Code_smell), which we eliminate by refactoring, my favorite by far is duplication. It is deceptively simple, yet consequential.
 
-1. Duplication, over time, introduces subtle differences in behavior between different parts of the system.
-2. Duplication can make a system harder to understand because from reading code alone it is not obvious that something is supposed to be the same as something else. This compounds. As it becomes harder and harder to see the forest for the trees.
+1. Duplication, over time, leads to subtle differences in behavior between different parts of the system.
+2. Duplication can make a system harder to understand because from reading code alone it is not obvious that something is supposed to be the same as something else. This compounds; it becomes harder and harder to see the forest for the trees.
 
 Conversely, removing duplication ([DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)-ing) drives technical design. When we remove duplication, we create a new code unit which we need to name and to place. This requires us to better understand our system. – We have to thank Kent Beck, J.B. Rainsberger and Martin Fowler for [advancing our understanding](https://martinfowler.com/bliki/BeckDesignRules.html) of this interplay between removing duplication and revealing intent.
 
@@ -203,7 +203,7 @@ Remember this?
 ```mermaid
 graph TD
 AllocationController --> FeatureToggleState;
-AllocationController --> AllocationPicker;
+AllocationController --> AllocationChooser;
 FeatureToggleUpdater --> FeatureToggleState;
 ```
 
@@ -216,7 +216,7 @@ allocation-rest --> allocation-logic;
 feature-sync --> feature-state;
 ```
 
-Not only does the cognitive complexity explode for a non-trivial system. In my experience, oftentimes, following this architectural style blindly actually increases coupling. For instance, `AllocationController` and `AllocationPicker` are likely to change in tandem as our domain evolves. Spreading these two out over two modules only creates friction without any tangible benefits.
+Not only does the cognitive complexity explode for a non-trivial system. In my experience, oftentimes, following this architectural style blindly actually increases coupling. For instance, `AllocationController` and `AllocationChooser` are likely to change in tandem as our domain evolves. If that’s the case, spreading these two out over two modules only creates friction without any tangible benefits.
 
 Instead, I suggest to only invert when needed and to keep things simple until then:
 
@@ -227,7 +227,7 @@ allocation --> feature;
 
 When is then? In this particular example: when incidental details of external APIs or details of updating feature state creep into `allocation`.
 
-I understand that this approach is more complex than a hard rule and requires one to take more care when developing. But in my view this at least allows for a clean architecture without quickly becoming impractical. – This also ties in nicely with something that I have learned from Kent Beck: cohesion and coupling are hard to analyze statically, but are better understood dynamically, i.e. by observing how a system evolves, which change it must support. (Unfortunately I do not have a source for this.)
+I understand that this approach is more complex than a hard rule and requires one to take more care when developing. But in my view this at least allows for a clean architecture without quickly becoming impractical. – This also ties in nicely with something that I have learned from Kent Beck: cohesion and coupling are hard to analyze statically, but are better understood dynamically, i.e. by observing how a system evolves, which change it must support. (Unfortunately I do not have a citation for this.) Put differently: what looks like a fabulously bad choice may not matter in the longer term, if you never have to touch this piece of code. Put effort into more elaborate architecture where it actually matters: where you stumble upon deficiencies of previous architectural choices.
 
 
 
