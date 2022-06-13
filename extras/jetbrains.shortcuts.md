@@ -30,6 +30,7 @@ Every action of the IDE is available here through typing instead of through clic
 | `Ctrl+B`       | `⌘ B`   | Go to Declaration <br> _and_ <br> Find Usages |                                          |
 | `Ctrl+Shift+N` | `⇧ ⌘ O` | Go to File                                    | Type path segments to narrow down search |
 | `Ctrl+E`       | `⌘ E`   | Recent Files                                  | Hit it 2×: Recently Changed Files        |
+| `Ctrl+Shift+F` | `⇧ ⌘ F` | Find in Files                                 |
 
 
 ## Edit Code
@@ -60,3 +61,12 @@ Every action of the IDE is available here through typing instead of through clic
 | `Ctrl+K`     | `⌘ K`   | Commit                     | IMO, the older modal commit dialog is far superior to Git CLI.                                                                          |
 | `Ctrl+Alt+Z` | `⌥ ⌘ Z` | Rollback                   | Reverts contiguous changed lines when hit while cursor on a changed line. <br> Otherwise, opens dialog to select which files to revert. |
 | –            | –       | Show History for Selection | Understand how a code section has changed over time                                                                                     |
+
+
+## Run
+
+| Win/Linux        | Mac     | Name                                                         | Notes                                                                                                                                                    |
+|------------------|---------|--------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `Shift+F10`      | `⌃ R`   | <official label rubbish; my suggestion: Re-Run>              | Re-run what you ran last                                                                                                                                 |
+| `Ctrl+Shift+F10` | `⌃ ⌘ R` | <official label rubbish; my suggestion: Run Current Scope>   | When cursor within test method, only runs test method. When cursor within test class, runs whole class, etc.                                             |
+| `Alt+Shift+F10`  | `⌃ ⇧ R` | <official label rubbish; my suggestion: Run Selector>        | Save commonly used run configurations and run them easily from here. Typical run configs: different test suites, e.g unit tests, integration tests, etc. |
