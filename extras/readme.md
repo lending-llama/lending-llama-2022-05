@@ -2,10 +2,10 @@
 ## What’s in Here?
 
 * [Notable Features in JetBrains IDEs (with Shortcuts!) (an incomplete compilation)](jetbrains.shortcuts.md)
-* Flip Charts: [flipcharts.pdf](flipcharts.pdf)
+* [Flip Charts (PDF)](flipcharts.pdf)
 * Transcript
-  * light theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.light.html
-  * dark theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.dark.html
+  * [light theme](https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.light.html)
+  * [dark theme](https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.dark.html)
 
 ----
 
