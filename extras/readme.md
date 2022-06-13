@@ -1,23 +1,22 @@
 
-## Flip Charts
+## What’s in Here?
 
-[flipcharts.pdf](flipcharts.pdf)
+* [Notable Features in JetBrains IDEs (with Shortcuts!) (an incomplete compilation)](jetbrains.shortcuts.md)
+* Flip Charts: [flipcharts.pdf](flipcharts.pdf)
+* Transcript
+  * light theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.light.html
+  * dark theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.dark.html
 
+----
 
-## Transcript
+## Background on Transcript Conversion (Markdown → HTML)
 
-* light theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.light.html
-* dark theme: https://htmlpreview.github.io/?https://github.com/lending-llama/lending-llama-2022-05/blob/main/extras/transcript.dark.html
-
-
-### Background on Markdown → HTML
-
-#### For the Reader
+### For the Reader
 
 GitHub does not support all the Markdown features that I use in the transcript. Therefore, I have rendered the Markdown to HTML. As GitHub does not present HTML as one would expect, above are links for easy viewing.
 
 
-#### For the Author
+### For the Author
 
 Rendering Markdown is still a pita. GFM does almost everything, including graphs with Mermaid. However, 
 * it still does not generate a table of contents automatically.
