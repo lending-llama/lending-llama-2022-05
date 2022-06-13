@@ -263,6 +263,10 @@ Example tools:
 * [Stryker](https://stryker-mutator.github.io/) (JavaScript)
 
 
+### Penetration Testing
+
+["How to Learn Penetration Testing: A Beginners Tutorial"](https://dev.to/ctrlshifti/how-to-learn-penetration-testing-a-beginners-tutorial-505a)
+
 
 ### Composed Method Pattern
 
