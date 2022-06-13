@@ -10,7 +10,7 @@ An incomplete compilation
 |----------------|---------|-------------|
 | `Ctrl+Shift+A` | `⇧ ⌘ A` | Find Action |
 
-**Why you need it**  
+**Why I need it**  
 Every action of the IDE is available here through typing instead of through clicking. This also makes the IDE very discoverable: even if I do not know what the action is called, I can type something and see if the search yields something useful.
 
 
@@ -25,19 +25,20 @@ Every action of the IDE is available here through typing instead of through clic
 
 ## Navigate Code
 
-| Win/Linux | Mac     | Name           | Notes                                    |
-|-----------|---------|----------------|------------------------------------------|
-|           | `⇧ ⌘ O` | Go to File     | Type path segments to narrow down search |
-|           |         | {recent files} | {2x: recently edited}                    |
+| Win/Linux | Mac     | Name                                          | Notes                                    |
+|-----------|---------|-----------------------------------------------|------------------------------------------|
+|           | `⌘ B`   | Go to Declaration <br> _and_ <br> Find Usages |                                          |
+|           | `⇧ ⌘ O` | Go to File                                    | Type path segments to narrow down search |
+|           | `⌘ E`   | Recent Files                                  | Hit it 2×: Recently Changed Files        |
 
 
 ## Edit Code
 
-| Win/Linux | Mac           | Name                    | Notes                                     |
-|-----------|---------------|-------------------------|-------------------------------------------|
-|           | `⌥ ↑` / `⌥ ↓` | Extend/Shrink Selection | Greatly reduces structural editing errors |
-|           | {alt+enter}   |                         |                                           |
-|           |               | {surround with}         |                                           |
+| Win/Linux | Mac           | Name                    | Notes                                               |
+|-----------|---------------|-------------------------|-----------------------------------------------------|
+|           | `⌥ ↑` / `⌥ ↓` | Extend/Shrink Selection | Greatly reduces structural editing errors           |
+|           | `⌥ ⏎`         | Show Context Actions    | Hit it from time to time, IntelliJ may surprise you |
+|           | `⌥ ⌘ T`       | Surround With …         | … `if/else`, `for`, `try/catch`                     |
 
 
 ## Refactor
@@ -45,16 +46,16 @@ Every action of the IDE is available here through typing instead of through clic
 | Win/Linux | Mac     | Name                   | Notes                          |
 |-----------|---------|------------------------|--------------------------------|
 |           | `⌃ T`   | Refactor This          | List of available refactorings |
-|           |         | Rename                 |
-|           |         | Introduce Variable     |
-|           |         | Extract Method         |
+|           | `⇧ F6`  | Rename                 |
+|           | `⌥ ⌘ V` | Introduce Variable     |
+|           | `⌥ ⌘ M` | Extract Method         |
 |           | `⌥ ⌘ N` | Inline Variable/Method |
 
 
 ## VCS
 
-| Win/Linux | Mac         | Name                       | Notes                                                          |
-|-----------|-------------|----------------------------|----------------------------------------------------------------|
-|           | `⌘ K`       | Commit                     | IMO, the older modal commit dialog is far superior to Git CLI. |
-|           | {cmd+alt+z} | Rollback                   | {current section}, 2x: file                                    |
-| –         | –           | Show History for Selection | Understand how a code section has changed over time            |
+| Win/Linux | Mac     | Name                       | Notes                                                                                                                                   |
+|-----------|---------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+|           | `⌘ K`   | Commit                     | IMO, the older modal commit dialog is far superior to Git CLI.                                                                          |
+|           | `⌥ ⌘ Z` | Rollback                   | Reverts contiguous changed lines when hit while cursor on a changed line. <br> Otherwise, opens dialog to select which files to revert. |
+| –         | –       | Show History for Selection | Understand how a code section has changed over time                                                                                     |
